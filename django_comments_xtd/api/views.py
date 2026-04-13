@@ -1,5 +1,3 @@
-import six
-
 from django.db.models import Prefetch
 from django.contrib.contenttypes.models import ContentType
 from django.utils.module_loading import import_string
@@ -11,7 +9,6 @@ from rest_framework import (
 )
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from rest_framework.schemas.openapi import AutoSchema
 
 from django_comments_xtd import views
 from django_comments_xtd import get_model
@@ -54,7 +51,7 @@ class CommentCreate(DefaultsMixin, generics.CreateAPIView):
             if 'non_field_errors' in serializer.errors:
                 response_msg = serializer.errors['non_field_errors'][0]
             else:
-                response_msg = [k for k in six.iterkeys(serializer.errors)]
+                response_msg = list(serializer.errors.keys())
             return Response(response_msg, status=400)
         if self.resp_dict['code'] == 201:  # The comment has been created.
             response.data.update({

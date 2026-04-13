@@ -36,14 +36,12 @@ start of the base64 pickle.
 There are 65 url-safe characters: the 64 used by url-safe base64 and the '.'.
 These functions make use of all of them.
 """
-from __future__ import unicode_literals
 
 import base64
 import hmac
 import pickle
 import hashlib
 
-import six
 from django_comments_xtd.conf import settings
 
 
@@ -76,7 +74,7 @@ def dumps(obj, key=None, compress=False, extra_key=b''):
 
 def loads(s, key=None, extra_key=b''):
     """Reverse of dumps(), raises ValueError if signature fails"""
-    if isinstance(s, six.text_type):
+    if isinstance(s, str):
         s = s.encode('utf8')  # base64 works on bytestrings
     try:
         base64d = unsign(s,
@@ -111,7 +109,7 @@ class BadSignature(ValueError):
 
 
 def sign(value, key=None):
-    if isinstance(value, six.text_type):
+    if isinstance(value, str):
         raise TypeError('sign() needs bytestring: %s' % repr(value))
     if key is None:
         key = settings.SECRET_KEY.encode('ascii')
@@ -119,7 +117,7 @@ def sign(value, key=None):
 
 
 def unsign(signed_value, key=None):
-    if isinstance(signed_value, six.text_type):
+    if isinstance(signed_value, str):
         raise TypeError('unsign() needs bytestring')
     if key is None:
         key = settings.SECRET_KEY.encode('ascii')

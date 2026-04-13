@@ -4,9 +4,6 @@ import django_comments
 from django_comments.signals import comment_was_posted, comment_will_be_posted
 
 
-default_app_config = 'django_comments_xtd.apps.CommentsXtdConfig'
-
-
 def get_model():
     from django_comments_xtd.conf import settings
     return import_string(settings.COMMENTS_XTD_MODEL)

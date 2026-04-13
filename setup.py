@@ -35,11 +35,10 @@ setup(
     maintainer_email="danirus@eml.cc",
     url="http://pypi.python.org/pypi/django-comments-xtd",
     install_requires=[
-        'Django>=3,<5.4',
+        'Django>=3,<7',
         'django-contrib-comments>=2.2,<2.3',
         'djangorestframework>=3.12',
         'docutils',
-        'six',
         'pytz',
     ],
     classifiers=[
